@@ -1,153 +1,272 @@
-import React, { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  doc,
-  onSnapshot,
-  updateDoc,
-  increment,
-  setDoc,
-} from "firebase/firestore";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lucky Dollar</title>
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBly2NJ8MCVdz4gnH9ak26Qk5mDsfCkKKk",
-  authDomain: "lucky-dollar-5a9a2.firebaseapp.com",
-  projectId: "lucky-dollar-5a9a2",
-  storageBucket: "lucky-dollar-5a9a2.appspot.com",
-  messagingSenderId: "1013567319226",
-  appId: "1:1013567319226:web:bd839bbf4554de758ca683",
-};
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export default function LuckyDollar() {
-  const [total, setTotal] = useState(0);
-  const [donateAmount, setDonateAmount] = useState(1);
-  const fundDoc = doc(db, "fund", "current");
-
-  // Subscribe to Firestore document to get real-time updates
-  useEffect(() => {
-    const unsubscribe = onSnapshot(fundDoc, (docSnap) => {
-      if (docSnap.exists()) {
-        setTotal(docSnap.data().total || 0);
-      } else {
-        // Create doc if it doesn't exist
-        setDoc(fundDoc, { total: 0 });
+  <style>
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
       }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    p.description {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .card {
+      background: rgba(255 255 255 / 0.15);
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      width: 320px;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .card:hover {
+      background: rgba(255 255 255 / 0.25);
+    }
+
+    #donateCount, #timer, #winner {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    a#donateLink {
+      display: inline-block;
+      text-decoration: none;
+      width: 100%;
+    }
+    button#donateBtn {
+      background: #28a745;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+    button#donateBtn:hover {
+      background: #218838;
+      transform: scale(1.05);
+    }
+    button#donateBtn:active {
+      transform: scale(0.95);
+    }
+
+    button#pickWinnerBtn {
+      background: #007bff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      width: 320px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 0.8rem;
+      user-select: none;
+    }
+    button#pickWinnerBtn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    button#pickWinnerBtn:active {
+      transform: scale(0.95);
+    }
+
+    p.fee-info {
+      font-size: 0.85rem;
+      color: rgba(255 255 255 / 0.5);
+      max-width: 320px;
+      margin: 1rem auto 0 auto;
+      user-select: none;
+    }
+
+    /* Facts section */
+    #facts {
+      background: rgba(255 255 255 / 0.12);
+      max-width: 480px;
+      border-radius: 15px;
+      padding: 1.2rem 1.8rem;
+      margin-top: 2rem;
+      color: #eef4f7;
+      text-align: left;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+    #facts h2 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      text-shadow: 0 0 3px rgba(0,0,0,0.4);
+    }
+    #facts ul {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+      line-height: 1.4;
+      font-size: 1rem;
+    }
+    #facts ul li {
+      margin-bottom: 0.7rem;
+    }
+    #facts a {
+      color: #bbdefb;
+      text-decoration: none;
+    }
+    #facts a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .card, button#pickWinnerBtn {
+        width: 90vw;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      #donateCount, #timer, #winner {
+        font-size: 1.4rem;
+      }
+      button#donateBtn {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Lucky Dollar</h1>
+  <p class="description">
+    There are nearly 8 billion people on Earth, yet a significant portion live on the edge of poverty.<br /><br />
+    Lucky Dollar is a community-driven project aiming to help those in need by pooling small donations.<br /><br />
+    Each participant donates $1 monthly to a shared prize pool. At the end of each month, one lucky donor receives the entire prize (minus a 13% fee used to promote and maintain the project).<br /><br />
+    With just one dollar, you can join this global movement to bring hope and change lives.<br /><br />
+    Will you be the next lucky winner?
+  </p>
+
+  <div class="card" id="donateCount">Total Donations: 0</div>
+  <div class="card" id="timer">Time left: --</div>
+
+  <a href="https://www.paypal.com/donate/?business=luckydollar.org@gmail.com&currency_code=USD" target="_blank" id="donateLink" rel="noopener noreferrer">
+    <button id="donateBtn">Donate $1</button>
+  </a>
+
+  <div class="card" id="winner">Last Winner: —</div>
+  <button id="pickWinnerBtn">Pick Winner</button>
+
+  <p class="fee-info">
+    * 13% fee is taken from the total donations to cover website promotion and maintenance.
+  </p>
+
+  <section id="facts">
+    <h2>Did you know?</h2>
+    <ul>
+      <li>Over <a href="https://en.wikipedia.org/wiki/World_population" target="_blank" rel="noopener noreferrer">8 billion people</a> live on Earth today.</li>
+      <li>About <a href="https://en.wikipedia.org/wiki/Global_poverty" target="_blank" rel="noopener noreferrer">9% of the world population</a> live in extreme poverty.</li>
+      <li>Pooling small donations can create big impacts — just $1 from many can help millions.</li>
+    </ul>
+  </section>
+
+  <!-- Firebase and app scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getDatabase, ref, push, onValue
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBly2NJ8MCVdz4gnH9ak26Qk5mDsfCkKKk",
+      authDomain: "lucky-dollar-5a9a2.firebaseapp.com",
+      projectId: "lucky-dollar-5a9a2",
+      storageBucket: "lucky-dollar-5a9a2.firebasestorage.app",
+      messagingSenderId: "1013567319226",
+      appId: "1:1013567319226:web:bd839bbf4554de758ca683",
+      databaseURL: "https://lucky-dollar-5a9a2-default-rtdb.firebaseio.com/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const donationsRef = ref(db, "donations");
+
+    // Update donations count live
+    const donateCountEl = document.getElementById("donateCount");
+    onValue(donationsRef, (snapshot) => {
+      const count = snapshot.size || 0;
+      donateCountEl.textContent = Total Donations: ${count};
     });
-    return () => unsubscribe();
-  }, []);
 
-  const handleDonate = async () => {
-    if (donateAmount <= 0) {
-      alert("Please enter a valid donation amount");
-      return;
+    // Timer until end of month
+    const timerEl = document.getElementById("timer");
+    function updateTimer() {
+      const now = new Date();
+      const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+      const diff = endOfMonth - now;
+      if(diff <= 0) {
+        timerEl.textContent = "Drawing winner soon...";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      timerEl.textContent = Time left: ${days}d ${hours}h ${minutes}m ${seconds}s;
     }
-    const netAmount = donateAmount * 0.87; // 13% fee deduction
-    try {
-      await updateDoc(fundDoc, {
-        total: increment(netAmount),
-      });
-      alert(Thank you for your donation of $${donateAmount.toFixed(2)}!);
-      setDonateAmount(1);
-    } catch (error) {
-      alert("Error updating donation: " + error.message);
-    }
-  };
+    setInterval(updateTimer, 1000);
+    updateTimer();
 
-  return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#121212",
-        color: "#eee",
-        minHeight: "100vh",
-        padding: "20px",
-        textAlign: "center",
-      }}
-    >
-      <h1>Lucky Dollar</h1>
-      <p>
-        Join millions worldwide helping each other. Donate $1 or any amount you
-        wish. 13% supports project growth.
-      </p>
+    // Placeholder for winner display
+    const winnerEl = document.getElementById("winner");
 
-      {/* Display total donation as a large number */}
-      <div
-        style={{
-          margin: "40px auto",
-          width: "200px",
-          height: "200px",
-          borderRadius: "50%",
-          border: "8px solid #55aaff",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "3rem",
-          fontWeight: "bold",
-          backgroundColor: "#1e1e1e",
-          userSelect: "none",
-        }}
-      >
-        ${total.toFixed(2)}
-      </div>
-
-      {/* Donation amount controls */}
-      <div style={{ marginBottom: "20px" }}>
-        <button
-          onClick={() => setDonateAmount(1)}
-          style={{
-            padding: "10px 20px",
-            marginRight: "10px",
-            backgroundColor: donateAmount === 1 ? "#55aaff" : "#333",
-            color: "#eee",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Donate $1
-        </button>
-        <input
-          type="number"
-          min="0.01"
-          step="0.01"
-          value={donateAmount === 1 ? "" : donateAmount}
-          placeholder="Or enter amount"
-          onChange={(e) => setDonateAmount(parseFloat(e.target.value) || 0)}
-          style={{
-            padding: "10px",
-            width: "120px",
-            borderRadius: "5px",
-            border: "1px solid #555",
-            backgroundColor: "#222",
-            color: "#eee",
-            fontSize: "1rem",
-          }}
-        />
-      </div>
-
-      <button
-        onClick={handleDonate}
-        style={{
-          padding: "12px 30px",
-          backgroundColor: "#55aaff",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          fontSize: "1.2rem",
-          cursor: "pointer",
-        }}
-      >
-        Donate
-      </button>
-
-      <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "30px" }}>
-        13% of every donation is kept to grow and promote this project.
-      </p>
-    </div>
-  );
-}
+    // Pick winner logic would go here (admin only)
+    document.getElementById("pickWinnerBtn").addEventListener("click", () => {
+      alert("Picking winner feature is under development.");
+    });
+  </script>
+</body>
+</html>
