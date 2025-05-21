@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lucky Dollar</title>
 <style>
-  /* Скидання */
   * {
     margin: 0; padding: 0; box-sizing: border-box;
   }
@@ -20,14 +18,15 @@
     top: 0; width: 100%;
     background: rgba(20,20,20,0.9);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
     z-index: 9999;
   }
-  nav ul {
+  .nav-links {
     list-style: none;
     display: flex;
     gap: 30px;
-    padding: 15px;
   }
   nav a {
     color: #eee;
@@ -38,6 +37,20 @@
   }
   nav a:hover {
     color: #ffd700;
+  }
+  .donate-btn-header {
+    background: #ffd700;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .donate-btn-header:hover {
+    background: #e6c200;
   }
   section {
     min-height: 100vh;
@@ -88,7 +101,6 @@
     border-radius: 12px;
     box-shadow: 0 0 20px #0008;
   }
-  /* Donate button */
   .donate-btn {
     background: #ffd700;
     border: none;
@@ -103,7 +115,6 @@
   .donate-btn:hover {
     background: #e6c200;
   }
-  /* Info about 13% */
   .info-13 {
     font-size: 0.9rem;
     color: #ccc;
@@ -111,80 +122,64 @@
     font-style: italic;
     max-width: 850px;
   }
-  /* Particles.js container */
   #particles-js {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
     z-index: -1;
   }
-  /* Smooth scroll */
   html {
     scroll-behavior: smooth;
   }
 </style>
 </head>
-<body>
-
-<div id="particles-js"></div>
-
-<nav>
-  <ul>
+<body><div id="particles-js"></div><nav>
+  <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#facts">Global Poverty Facts</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#donate">Donate</a></li>
     <li><a href="#winners">Winners</a></li>
   </ul>
-</nav>
-
-<section id="about">
+  <button class="donate-btn-header" onclick="document.querySelector('#donate').scrollIntoView({ behavior: 'smooth' });">Donate $1</button>
+</nav><section id="about">
   <h2>About Lucky Dollar</h2>
   <p>
-    Our planet is home to over 8 billion people, yet a significant percentage live on the edge of poverty. 
-    The Lucky Dollar project creates a community where small contributions from many can provide real help 
+    Our planet is home to over 8 billion people, yet a significant percentage live on the edge of poverty.
+    The Lucky Dollar project creates a community where small contributions from many can provide real help
     through a fair, transparent monthly lottery.
   </p>
   <p>
-    By donating just $1, each participant enters a raffle where the pooled funds go to one lucky winner. 
+    By donating just $1, each participant enters a raffle where the pooled funds go to one lucky winner.
     We keep only 13% to support the project’s growth and sustainability, allowing more people to join and benefit.
   </p>
   <p>
     This platform promotes global solidarity, hope, and practical assistance. Join us in making a difference — one dollar at a time.
   </p>
-</section>
-
-<section id="facts">
+  <p>
+    Learn more about the global income inequality and poverty crisis through our external sources below.
+  </p>
+</section><section id="facts">
   <h2>Global Poverty Facts</h2>
   <ul>
     <li><a class="external" href="https://en.wikipedia.org/wiki/Poverty" target="_blank" rel="noopener">Poverty - Wikipedia</a></li>
     <li><a class="external" href="https://www.worldbank.org/en/topic/poverty" target="_blank" rel="noopener">World Bank Poverty Overview</a></li>
     <li><a class="external" href="https://www.un.org/sustainabledevelopment/poverty/" target="_blank" rel="noopener">UN Sustainable Development Goals - Poverty</a></li>
   </ul>
-</section>
-
-<section id="videos">
+</section><section id="videos">
   <h2>Videos</h2>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/4zLHOz6oT4o" title="YouTube video on poverty" frameborder="0" allowfullscreen></iframe>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/1bO3Lghs8Nw" title="YouTube video on charity" frameborder="0" allowfullscreen></iframe>
-</section>
-
-<section id="donate">
+</section><section id="donate">
   <h2>Donate</h2>
   <p>You can support the project by donating just $1 and entering the monthly raffle.</p>
   <!-- Твій код платежів тут (stripe або paypal) -->
   <button class="donate-btn" onclick="alert('Donate functionality coming soon!')">Donate $1</button>
-  <p class="info-13">Note: 13% of each donation is used to cover promotion and platform costs.</p>
-</section>
-
-<section id="winners">
+  <p class="info-13">Note: 13% of each donation is used to cover promotion and platform costs to reach more users and sustain development.</p>
+</section><section id="winners">
   <h2>Winners</h2>
   <p>The list of recent winners will appear here to keep the process transparent.</p>
-</section>
-
-<!-- Particles.js script -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
+</section><script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script><script>
   particlesJS('particles-js', {
     particles: {
       number: { value: 60, density: { enable: true, value_area: 900 } },
@@ -203,7 +198,5 @@
     },
     retina_detect: true
   });
-</script>
-
-</body>
+</script></body>
 </html>
