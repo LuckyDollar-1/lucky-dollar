@@ -2,43 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lucky Dollar</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      background: #f0f8ff;
+    /* Reset */
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 2rem;
+      padding: 0;
     }
-    h1 { color: #008080; }
-    #donateCount, #timer, #winner { font-size: 1.5rem; margin: 1rem 0; }
-    button {
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      background-color: #28a745;
-      color: white;
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+
+    p.description {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+    }
+
+    .card {
+      background: rgba(255 255 255 / 0.15);
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      width: 320px;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.2);
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .card:hover {
+      background: rgba(255 255 255 / 0.25);
+    }
+
+    #donateCount, #timer, #winner {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Donate Button */
+    a#donateLink {
+      display: inline-block;
+      text-decoration: none;
+      width: 100%;
+    }
+    button#donateBtn {
+      background: #28a745;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
+      padding: 1rem 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      width: 100%;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
     }
-    button:hover { background-color: #218838; }
+    button#donateBtn:hover {
+      background: #218838;
+      transform: scale(1.05);
+    }
+    button#donateBtn:active {
+      transform: scale(0.95);
+    }
+
+    /* Pick Winner Button */
+    button#pickWinnerBtn {
+      background: #007bff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      width: 320px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 0.8rem;
+      user-select: none;
+    }
+    button#pickWinnerBtn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    button#pickWinnerBtn:active {
+      transform: scale(0.95);
+    }
+
+    /* Info text about 13% */
+    p.fee-info {
+      font-size: 0.85rem;
+      color: rgba(255 255 255 / 0.5);
+      max-width: 320px;
+      margin: 1rem auto 0 auto;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .card, button#pickWinnerBtn {
+        width: 90vw;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      #donateCount, #timer, #winner {
+        font-size: 1.4rem;
+      }
+      button#donateBtn {
+        font-size: 1.1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>Lucky Dollar</h1>
-  <p>Each month, one lucky donor receives the full prize pool (minus 13%).</p>
+  <p class="description">
+    There are nearly 8 billion people on Earth, yet a significant portion live on the edge of poverty.<br /><br />
+    Lucky Dollar is a community-driven project aiming to help those in need by pooling small donations.<br /><br />
+    Each participant donates $1 monthly to a shared prize pool. At the end of each month, one lucky donor receives the entire prize (minus a 13% fee used to promote and maintain the project).<br /><br />
+    With just one dollar, you can join this global movement to bring hope and change lives.<br /><br />
+    Will you be the next lucky winner?
+  </p>
 
-  <div id="donateCount">Total Donations: 0</div>
-  <div id="timer">Time left: --</div>
+  <div class="card" id="donateCount">Total Donations: 0</div>
+  <div class="card" id="timer">Time left: --</div>
 
-  <a href="https://www.paypal.com/donate/?business=luckydollar.org@gmail.com&currency_code=USD" target="_blank">
-  <button id="donateBtn">Donate $1</button>
-</a>
+  <a href="https://www.paypal.com/donate/?business=luckydollar.org@gmail.com&currency_code=USD" target="_blank" id="donateLink" rel="noopener noreferrer">
+    <button id="donateBtn">Donate $1</button>
+  </a>
 
-  <div id="winner">Last Winner: —</div>
-  <button onclick="pickWinner()">Pick Winner</button>
+  <div class="card" id="winner">Last Winner: —</div>
+  <button id="pickWinnerBtn">Pick Winner</button>
+
+  <p class="fee-info">
+    * 13% fee is taken from the total donations to cover website promotion and maintenance.
+  </p>
 
   <!-- Firebase SDKs -->
   <script type="module">
@@ -59,52 +184,14 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-
     const donationsRef = ref(db, "donations");
 
-    // Simulate new donor (replace with webhook in real use)
+    // For demo: add a fake donation on Donate button click (replace with real integration later)
     document.getElementById("donateBtn").addEventListener("click", () => {
       const fakeUser = "user" + Math.floor(Math.random() * 100000) + "@mail.com";
       push(donationsRef, { email: fakeUser, timestamp: Date.now() });
     });
 
-    // Update donation count live
-    onValue(donationsRef, (snapshot) => {
-      const data = snapshot.val();
-      const count = data ? Object.keys(data).length : 0;
-      document.getElementById("donateCount").innerText = Total Donations: ${count};
-    });
-
-    // Timer to end of month
-    function updateTimer() {
-      const now = new Date();
-      const end = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-      const diff = end - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      document.getElementById("timer").innerText = Time left: ${days}d ${hours}h ${mins}m;
-    }
-    setInterval(updateTimer, 1000);
-    updateTimer();
-
-    // Pick winner (manual trigger)
-    async function pickWinner() {
-      const snapshot = await get(donationsRef);
-      const data = snapshot.val();
-      if (!data) {
-        alert("No donations yet!");
-        return;
-      }
-      const keys = Object.keys(data);
-      const winnerKey = keys[Math.floor(Math.random() * keys.length)];
-      const winnerEmail = data[winnerKey].email;
-      const masked = winnerEmail.replace(/(.{2}).+(@.+)/, "$1*$2");
-      document.getElementById("winner").innerText = Last Winner: ${masked};
-
-      // Clear all for next round
-      await remove(donationsRef);
-    }
-  </script>
-</body>
-</html>
+    // Animate donation count
+    let lastCount = 0;
+    onValue(d
