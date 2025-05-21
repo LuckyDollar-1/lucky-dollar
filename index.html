@@ -1,209 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lucky Dollar</title>
-<style>
-  /* Скидання */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #111;
-    color: #eee;
-    line-height: 1.6;
-  }
-  nav {
-    position: fixed;
-    top: 0; width: 100%;
-    background: rgba(20,20,20,0.9);
-    display: flex;
-    justify-content: center;
-    z-index: 9999;
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    padding: 15px;
-  }
-  nav a {
-    color: #eee;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-  nav a:hover {
-    color: #ffd700;
-  }
-  section {
-    min-height: 100vh;
-    padding: 100px 40px 60px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  #about {
-    background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1470&q=80');
-  }
-  #facts {
-    background-image: url('https://images.unsplash.com/photo-1486308510493-cb6f7b2f1b12?auto=format&fit=crop&w=1470&q=80');
-  }
-  #videos {
-    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
-  }
-  #donate {
-    background: #222;
-    color: #eee;
-  }
-  #winners {
-    background: #333;
-  }
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 6px #000;
-  }
-  p, li {
-    font-size: 1.2rem;
-    max-width: 850px;
-    text-shadow: 1px 1px 4px #000;
-  }
-  ul {
-    margin-bottom: 40px;
-  }
-  li {
-    margin: 10px 0;
-  }
-  a.external {
-    color: #ffd700;
-  }
-  iframe {
-    max-width: 100%;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #0008;
-  }
-  /* Donate button */
-  .donate-btn {
-    background: #ffd700;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #222;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .donate-btn:hover {
-    background: #e6c200;
-  }
-  /* Info about 13% */
-  .info-13 {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-top: 15px;
-    font-style: italic;
-    max-width: 850px;
-  }
-  /* Particles.js container */
-  #particles-js {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: -1;
-  }
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky Dollar - Global Solidarity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding: 0 20px;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #00ffcc;
+    }
+    .donate-button {
+      margin: 20px auto;
+      padding: 15px 30px;
+      background-color: #00ffcc;
+      color: #121212;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+    }
+    .donate-button:hover {
+      background-color: #00ccaa;
+    }
+    .content {
+      max-width: 800px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .images-section {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .images-section img {
+      width: 240px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #aaaaaa;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Lucky Dollar</h1>
+    <button class="donate-button">Donate $1</button>
+  </header>  <div class="content">
+    <p>There are over 8 billion people on Earth. Imagine if even a small percentage donated just $1 to help those in need. Lucky Dollar is a global social experiment that collects $1 donations and randomly gives the accumulated amount (minus 13% for promotion and operation) to one lucky donor each month.</p><p>Every donation is a seed of hope. Whether you win or not, you help someone get closer to a better life. This is about unity, compassion, and chance.</p>
 
-<div id="particles-js"></div>
+<p>We've added a <strong>13% allocation</strong> for spreading the idea and maintaining the project. This allows more people to join in and creates a bigger global impact. It's not a fee — it's an investment into our collective momentum.</p>
 
-<nav>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#facts">Global Poverty Facts</a></li>
-    <li><a href="#videos">Videos</a></li>
-    <li><a href="#donate">Donate</a></li>
-    <li><a href="#winners">Winners</a></li>
-  </ul>
-</nav>
+<p><strong>Did you know?</strong> Over 700 million people live in extreme poverty, surviving on less than $1.90 a day. Learn more from:
+  <br><a href="https://en.wikipedia.org/wiki/Extreme_poverty" target="_blank">Wikipedia: Extreme Poverty</a>
+</p>
 
-<section id="about">
-  <h2>About Lucky Dollar</h2>
-  <p>
-    Our planet is home to over 8 billion people, yet a significant percentage live on the edge of poverty. 
-    The Lucky Dollar project creates a community where small contributions from many can provide real help 
-    through a fair, transparent monthly lottery.
-  </p>
-  <p>
-    By donating just $1, each participant enters a raffle where the pooled funds go to one lucky winner. 
-    We keep only 13% to support the project’s growth and sustainability, allowing more people to join and benefit.
-  </p>
-  <p>
-    This platform promotes global solidarity, hope, and practical assistance. Join us in making a difference — one dollar at a time.
-  </p>
-</section>
+<p>Watch inspiring videos about poverty and generosity:
+  <br><a href="https://www.youtube.com/results?search_query=how+to+help+end+poverty" target="_blank">YouTube: How to Help End Poverty</a>
+</p>
 
-<section id="facts">
-  <h2>Global Poverty Facts</h2>
-  <ul>
-    <li><a class="external" href="https://en.wikipedia.org/wiki/Poverty" target="_blank" rel="noopener">Poverty - Wikipedia</a></li>
-    <li><a class="external" href="https://www.worldbank.org/en/topic/poverty" target="_blank" rel="noopener">World Bank Poverty Overview</a></li>
-    <li><a class="external" href="https://www.un.org/sustainabledevelopment/poverty/" target="_blank" rel="noopener">UN Sustainable Development Goals - Poverty</a></li>
-  </ul>
-</section>
-
-<section id="videos">
-  <h2>Videos</h2>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/4zLHOz6oT4o" title="YouTube video on poverty" frameborder="0" allowfullscreen></iframe>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/1bO3Lghs8Nw" title="YouTube video on charity" frameborder="0" allowfullscreen></iframe>
-</section>
-
-<section id="donate">
-  <h2>Donate</h2>
-  <p>You can support the project by donating just $1 and entering the monthly raffle.</p>
-  <!-- Твій код платежів тут (stripe або paypal) -->
-  <button class="donate-btn" onclick="alert('Donate functionality coming soon!')">Donate $1</button>
-  <p class="info-13">Note: 13% of each donation is used to cover promotion and platform costs.</p>
-</section>
-
-<section id="winners">
-  <h2>Winners</h2>
-  <p>The list of recent winners will appear here to keep the process transparent.</p>
-</section>
-
-<!-- Particles.js script -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
-  particlesJS('particles-js', {
-    particles: {
-      number: { value: 60, density: { enable: true, value_area: 900 } },
-      color: { value: '#ffd700' },
-      shape: { type: 'circle', stroke: { width: 0 } },
-      opacity: { value: 0.4, random: true },
-      size: { value: 3, random: true },
-      move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
-    },
-    interactivity: {
-      events: {
-        onhover: { enable: true, mode: 'repulse' },
-        onclick: { enable: true, mode: 'push' }
-      },
-      modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-    },
-    retina_detect: true
-  });
-</script>
-
+  </div>  <div class="images-section">
+    <img src="https://images.unsplash.com/photo-1614204424926-f493e0b4ba56?auto=format&fit=crop&w=800&q=80" alt="Finance illustration" />
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Helping hand" />
+    <img src="https://images.unsplash.com/photo-1581091012184-7d8c65b9b8af?auto=format&fit=crop&w=800&q=80" alt="Global connection" />
+  </div>  <footer>
+    <p>Lucky Dollar is a transparent, community-driven platform. Your $1 can change someone’s world.</p>
+    <p>© 2025 Lucky Dollar Project</p>
+  </footer>
 </body>
 </html>
