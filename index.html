@@ -1,272 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lucky Dollar</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-
-  <style>
-    @keyframes gradientBG {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      color: #fff;
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem 3rem;
-      text-align: center;
-    }
-
-    h1 {
-      font-weight: 700;
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
-    }
-
-    p.description {
-      font-size: 1.15rem;
-      margin-bottom: 2rem;
-      max-width: 480px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-    }
-
-    .card {
-      background: rgba(255 255 255 / 0.15);
-      border-radius: 15px;
-      padding: 1.5rem 2rem;
-      margin-bottom: 1.5rem;
-      width: 320px;
-      box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .card:hover {
-      background: rgba(255 255 255 / 0.25);
-    }
-
-    #donateCount, #timer, #winner {
-      font-size: 1.8rem;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    a#donateLink {
-      display: inline-block;
-      text-decoration: none;
-      width: 100%;
-    }
-    button#donateBtn {
-      background: #28a745;
-      border: none;
-      border-radius: 12px;
-      padding: 1rem 0;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      width: 100%;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      user-select: none;
-    }
-    button#donateBtn:hover {
-      background: #218838;
-      transform: scale(1.05);
-    }
-    button#donateBtn:active {
-      transform: scale(0.95);
-    }
-
-    button#pickWinnerBtn {
-      background: #007bff;
-      border: none;
-      border-radius: 12px;
-      padding: 0.8rem 0;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: white;
-      width: 320px;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      margin-top: 0.8rem;
-      user-select: none;
-    }
-    button#pickWinnerBtn:hover {
-      background: #0056b3;
-      transform: scale(1.05);
-    }
-    button#pickWinnerBtn:active {
-      transform: scale(0.95);
-    }
-
-    p.fee-info {
-      font-size: 0.85rem;
-      color: rgba(255 255 255 / 0.5);
-      max-width: 320px;
-      margin: 1rem auto 0 auto;
-      user-select: none;
-    }
-
-    /* Facts section */
-    #facts {
-      background: rgba(255 255 255 / 0.12);
-      max-width: 480px;
-      border-radius: 15px;
-      padding: 1.2rem 1.8rem;
-      margin-top: 2rem;
-      color: #eef4f7;
-      text-align: left;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-      user-select: none;
-    }
-    #facts h2 {
-      font-weight: 700;
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
-      text-shadow: 0 0 3px rgba(0,0,0,0.4);
-    }
-    #facts ul {
-      list-style-type: disc;
-      padding-left: 1.2rem;
-      line-height: 1.4;
-      font-size: 1rem;
-    }
-    #facts ul li {
-      margin-bottom: 0.7rem;
-    }
-    #facts a {
-      color: #bbdefb;
-      text-decoration: none;
-    }
-    #facts a:hover {
-      text-decoration: underline;
-    }
-
-    /* Responsive */
-    @media (max-width: 400px) {
-      .card, button#pickWinnerBtn {
-        width: 90vw;
-      }
-      h1 {
-        font-size: 2.2rem;
-      }
-      #donateCount, #timer, #winner {
-        font-size: 1.4rem;
-      }
-      button#donateBtn {
-        font-size: 1.1rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lucky Dollar</title>
+<style>
+  /* Скидання */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #111;
+    color: #eee;
+    line-height: 1.6;
+  }
+  nav {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(20,20,20,0.9);
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 15px;
+  }
+  nav a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #ffd700;
+  }
+  section {
+    min-height: 100vh;
+    padding: 100px 40px 60px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #about {
+    background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1470&q=80');
+  }
+  #facts {
+    background-image: url('https://images.unsplash.com/photo-1486308510493-cb6f7b2f1b12?auto=format&fit=crop&w=1470&q=80');
+  }
+  #videos {
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
+  }
+  #donate {
+    background: #222;
+    color: #eee;
+  }
+  #winners {
+    background: #333;
+  }
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px #000;
+  }
+  p, li {
+    font-size: 1.2rem;
+    max-width: 850px;
+    text-shadow: 1px 1px 4px #000;
+  }
+  ul {
+    margin-bottom: 40px;
+  }
+  li {
+    margin: 10px 0;
+  }
+  a.external {
+    color: #ffd700;
+  }
+  iframe {
+    max-width: 100%;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #0008;
+  }
+  /* Donate button */
+  .donate-btn {
+    background: #ffd700;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #222;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .donate-btn:hover {
+    background: #e6c200;
+  }
+  /* Info about 13% */
+  .info-13 {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 15px;
+    font-style: italic;
+    max-width: 850px;
+  }
+  /* Particles.js container */
+  #particles-js {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+  }
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
 </head>
 <body>
-  <h1>Lucky Dollar</h1>
-  <p class="description">
-    There are nearly 8 billion people on Earth, yet a significant portion live on the edge of poverty.<br /><br />
-    Lucky Dollar is a community-driven project aiming to help those in need by pooling small donations.<br /><br />
-    Each participant donates $1 monthly to a shared prize pool. At the end of each month, one lucky donor receives the entire prize (minus a 13% fee used to promote and maintain the project).<br /><br />
-    With just one dollar, you can join this global movement to bring hope and change lives.<br /><br />
-    Will you be the next lucky winner?
+
+<div id="particles-js"></div>
+
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#facts">Global Poverty Facts</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#donate">Donate</a></li>
+    <li><a href="#winners">Winners</a></li>
+  </ul>
+</nav>
+
+<section id="about">
+  <h2>About Lucky Dollar</h2>
+  <p>
+    Our planet is home to over 8 billion people, yet a significant percentage live on the edge of poverty. 
+    The Lucky Dollar project creates a community where small contributions from many can provide real help 
+    through a fair, transparent monthly lottery.
   </p>
-
-  <div class="card" id="donateCount">Total Donations: 0</div>
-  <div class="card" id="timer">Time left: --</div>
-
-  <a href="https://www.paypal.com/donate/?business=luckydollar.org@gmail.com&currency_code=USD" target="_blank" id="donateLink" rel="noopener noreferrer">
-    <button id="donateBtn">Donate $1</button>
-  </a>
-
-  <div class="card" id="winner">Last Winner: —</div>
-  <button id="pickWinnerBtn">Pick Winner</button>
-
-  <p class="fee-info">
-    * 13% fee is taken from the total donations to cover website promotion and maintenance.
+  <p>
+    By donating just $1, each participant enters a raffle where the pooled funds go to one lucky winner. 
+    We keep only 13% to support the project’s growth and sustainability, allowing more people to join and benefit.
   </p>
+  <p>
+    This platform promotes global solidarity, hope, and practical assistance. Join us in making a difference — one dollar at a time.
+  </p>
+</section>
 
-  <section id="facts">
-    <h2>Did you know?</h2>
-    <ul>
-      <li>Over <a href="https://en.wikipedia.org/wiki/World_population" target="_blank" rel="noopener noreferrer">8 billion people</a> live on Earth today.</li>
-      <li>About <a href="https://en.wikipedia.org/wiki/Global_poverty" target="_blank" rel="noopener noreferrer">9% of the world population</a> live in extreme poverty.</li>
-      <li>Pooling small donations can create big impacts — just $1 from many can help millions.</li>
-    </ul>
-  </section>
+<section id="facts">
+  <h2>Global Poverty Facts</h2>
+  <ul>
+    <li><a class="external" href="https://en.wikipedia.org/wiki/Poverty" target="_blank" rel="noopener">Poverty - Wikipedia</a></li>
+    <li><a class="external" href="https://www.worldbank.org/en/topic/poverty" target="_blank" rel="noopener">World Bank Poverty Overview</a></li>
+    <li><a class="external" href="https://www.un.org/sustainabledevelopment/poverty/" target="_blank" rel="noopener">UN Sustainable Development Goals - Poverty</a></li>
+  </ul>
+</section>
 
-  <!-- Firebase and app scripts -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import {
-      getDatabase, ref, push, onValue
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+<section id="videos">
+  <h2>Videos</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/4zLHOz6oT4o" title="YouTube video on poverty" frameborder="0" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/1bO3Lghs8Nw" title="YouTube video on charity" frameborder="0" allowfullscreen></iframe>
+</section>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBly2NJ8MCVdz4gnH9ak26Qk5mDsfCkKKk",
-      authDomain: "lucky-dollar-5a9a2.firebaseapp.com",
-      projectId: "lucky-dollar-5a9a2",
-      storageBucket: "lucky-dollar-5a9a2.firebasestorage.app",
-      messagingSenderId: "1013567319226",
-      appId: "1:1013567319226:web:bd839bbf4554de758ca683",
-      databaseURL: "https://lucky-dollar-5a9a2-default-rtdb.firebaseio.com/"
-    };
+<section id="donate">
+  <h2>Donate</h2>
+  <p>You can support the project by donating just $1 and entering the monthly raffle.</p>
+  <!-- Твій код платежів тут (stripe або paypal) -->
+  <button class="donate-btn" onclick="alert('Donate functionality coming soon!')">Donate $1</button>
+  <p class="info-13">Note: 13% of each donation is used to cover promotion and platform costs.</p>
+</section>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const donationsRef = ref(db, "donations");
+<section id="winners">
+  <h2>Winners</h2>
+  <p>The list of recent winners will appear here to keep the process transparent.</p>
+</section>
 
-    // Update donations count live
-    const donateCountEl = document.getElementById("donateCount");
-    onValue(donationsRef, (snapshot) => {
-      const count = snapshot.size || 0;
-      donateCountEl.textContent = Total Donations: ${count};
-    });
+<!-- Particles.js script -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 60, density: { enable: true, value_area: 900 } },
+      color: { value: '#ffd700' },
+      shape: { type: 'circle', stroke: { width: 0 } },
+      opacity: { value: 0.4, random: true },
+      size: { value: 3, random: true },
+      move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: 'repulse' },
+        onclick: { enable: true, mode: 'push' }
+      },
+      modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+    },
+    retina_detect: true
+  });
+</script>
 
-    // Timer until end of month
-    const timerEl = document.getElementById("timer");
-    function updateTimer() {
-      const now = new Date();
-      const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-      const diff = endOfMonth - now;
-      if(diff <= 0) {
-        timerEl.textContent = "Drawing winner soon...";
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      timerEl.textContent = Time left: ${days}d ${hours}h ${minutes}m ${seconds}s;
-    }
-    setInterval(updateTimer, 1000);
-    updateTimer();
-
-    // Placeholder for winner display
-    const winnerEl = document.getElementById("winner");
-
-    // Pick winner logic would go here (admin only)
-    document.getElementById("pickWinnerBtn").addEventListener("click", () => {
-      alert("Picking winner feature is under development.");
-    });
-  </script>
 </body>
 </html>
