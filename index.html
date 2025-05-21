@@ -7,7 +7,6 @@ import {
   updateDoc,
   increment,
   setDoc,
-  getDoc,
 } from "firebase/firestore";
 
 // Firebase config
@@ -20,7 +19,7 @@ const firebaseConfig = {
   appId: "1:1013567319226:web:bd839bbf4554de758ca683",
 };
 
-// Ініціалізація Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -29,32 +28,33 @@ export default function LuckyDollar() {
   const [donateAmount, setDonateAmount] = useState(1);
   const fundDoc = doc(db, "fund", "current");
 
-  // Підписка на зміни в Firestore, щоб оновлювати суму
+  // Subscribe to Firestore document to get real-time updates
   useEffect(() => {
-    const unsub = onSnapshot(fundDoc, (docSnap) => {
+    const unsubscribe = onSnapshot(fundDoc, (docSnap) => {
       if (docSnap.exists()) {
         setTotal(docSnap.data().total || 0);
       } else {
-        // Якщо документ не створений, створимо його
+        // Create doc if it doesn't exist
         setDoc(fundDoc, { total: 0 });
       }
     });
-    return () => unsub();
+    return () => unsubscribe();
   }, []);
 
-  // Обробник донату
   const handleDonate = async () => {
-    if (donateAmount <= 0) return alert("Please enter a valid amount");
-    // Вираховуємо 87% від суми (забираємо 13%)
-    const netAmount = donateAmount * 0.87;
+    if (donateAmount <= 0) {
+      alert("Please enter a valid donation amount");
+      return;
+    }
+    const netAmount = donateAmount * 0.87; // 13% fee deduction
     try {
       await updateDoc(fundDoc, {
         total: increment(netAmount),
       });
-      alert(Thank you for donating $${donateAmount.toFixed(2)}!);
-      setDonateAmount(1); // Скидаємо поле
+      alert(Thank you for your donation of $${donateAmount.toFixed(2)}!);
+      setDonateAmount(1);
     } catch (error) {
-      alert("Error donating: " + error.message);
+      alert("Error updating donation: " + error.message);
     }
   };
 
@@ -75,7 +75,7 @@ export default function LuckyDollar() {
         wish. 13% supports project growth.
       </p>
 
-      {/* Циферблат з сумою */}
+      {/* Display total donation as a large number */}
       <div
         style={{
           margin: "40px auto",
@@ -95,7 +95,7 @@ export default function LuckyDollar() {
         ${total.toFixed(2)}
       </div>
 
-      {/* Вибір суми */}
+      {/* Donation amount controls */}
       <div style={{ marginBottom: "20px" }}>
         <button
           onClick={() => setDonateAmount(1)}
