@@ -1,259 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lucky Dollar - Helping People Globally</title>
-<style>
-  body {
-    background: linear-gradient(135deg, #1b1b1b, #2e2e2e);
-    color: #ddd;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0; padding: 0;
-  }
-  header {
-    background: #121212;
-    padding: 20px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fff;
-  }
-  main {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 0 20px;
-  }
-  h1 {
-    margin-bottom: 0;
-  }
-  p.info {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-top: 0.3em;
-    margin-bottom: 1em;
-  }
-  .donate-buttons {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-  button {
-    background-color: #2e7d32;
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border-radius: 6px;
-    flex: 1;
-    transition: background-color 0.3s;
-  }
-  button:hover {
-    background-color: #60ad5e;
-  }
-  input[type="number"] {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    border: none;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-  }
-  .progress-container {
-    background: #333;
-    border-radius: 12px;
-    width: 100%;
-    height: 40px;
-    overflow: hidden;
-    margin-bottom: 30px;
-    box-shadow: inset 0 0 5px #000;
-    position: relative;
-  }
-  .progress-bar {
-    background: #4caf50;
-    height: 100%;
-    width: 0%;
-    transition: width 0.5s ease-in-out;
-  }
-  .progress-label {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    line-height: 40px;
-    font-weight: bold;
-    color: #ddd;
-  }
-  .images-gallery {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  .images-gallery img {
-    width: 180px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #000;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  .images-gallery img:hover {
-    transform: scale(1.05);
-  }
-  footer {
-    background: #121212;
-    text-align: center;
-    color: #777;
-    padding: 15px;
-    font-size: 0.9rem;
-  }
-  a {
-    color: #8bc34a;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  .small-note {
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: -15px;
-    margin-bottom: 30px;
-    max-width: 600px;
-  }
-</style>
-</head>
-<body>
-<header>Lucky Dollar</header>
-<main>
-  <h1>Helping People Globally, One Dollar at a Time</h1>
-  <p class="info">
-    There are over 8 billion people on Earth, yet a large percentage live on the edge of poverty. Lucky Dollar is a community-driven project where anyone can donate just $1 or a custom amount to a shared pool. Every month, one lucky contributor receives the entire pool — a chance to help one person in need while fostering generosity worldwide.
-  </p>
-  <p class="info">
-    We take only 13% from donations to cover platform promotion and maintenance, ensuring the project's growth and transparency.
-  </p>
-  <div class="donate-buttons">
-    <button id="donate1">Donate $1</button>
-  </div>
-  <input type="number" id="customAmount" placeholder="Or enter a custom amount in USD" min="1" />
-  <button id="donateCustom">Donate Custom Amount</button>
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  doc,
+  onSnapshot,
+  updateDoc,
+  increment,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 
-  <div class="small-note">
-    * Donations are processed securely via PayPal. Join our mission to make a difference!
-  </div>
-
-  <div class="progress-container" title="Current Fund Balance">
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="progress-label" id="progressLabel">$0 raised</div>
-  </div>
-
-  <section class="images-gallery" aria-label="Financial help and charity images">
-    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="Helping hands" />
-    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Charity donation" />
-    <img src="https://images.unsplash.com/photo-1536305033133-f7a5f5e4493f?auto=format&fit=crop&w=400&q=80" alt="Global community" />
-    <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=400&q=80" alt="Finance and saving" />
-  </section>
-
-  <section>
-    <h2>Learn More About Global Poverty</h2>
-    <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Poverty" target="_blank" rel="noopener noreferrer">What is Poverty? - Wikipedia</a></li>
-      <li><a href="https://www.youtube.com/watch?v=GCL_hXcI0jE" target="_blank" rel="noopener noreferrer">Global Poverty Explained - YouTube</a></li>
-      <li><a href="https://www.worldbank.org/en/topic/poverty" target="_blank" rel="noopener noreferrer">World Bank Poverty Overview</a></li>
-    </ul>
-  </section>
-</main>
-
-<footer>
-  &copy; 2025 Lucky Dollar | Powered by community donations
-</footer>
-
-<script type="module">
-// Firebase SDK imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// Your Firebase config here
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBly2NJ8MCVdz4gnH9ak26Qk5mDsfCkKKk",
   authDomain: "lucky-dollar-5a9a2.firebaseapp.com",
   projectId: "lucky-dollar-5a9a2",
   storageBucket: "lucky-dollar-5a9a2.appspot.com",
   messagingSenderId: "1013567319226",
-  appId: "1:1013567319226:web:bd839bbf4554de758ca683"
+  appId: "1:1013567319226:web:bd839bbf4554de758ca683",
 };
 
+// Ініціалізація Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const fundDocRef = doc(db, "fund", "current");
+export default function LuckyDollar() {
+  const [total, setTotal] = useState(0);
+  const [donateAmount, setDonateAmount] = useState(1);
+  const fundDoc = doc(db, "fund", "current");
 
-// UI Elements
-const progressBar = document.getElementById("progressBar");
-const progressLabel = document.getElementById("progressLabel");
-const donate1Btn = document.getElementById("donate1");
-const donateCustomBtn = document.getElementById("donateCustom");
-const customAmountInput = document.getElementById("customAmount");
+  // Підписка на зміни в Firestore, щоб оновлювати суму
+  useEffect(() => {
+    const unsub = onSnapshot(fundDoc, (docSnap) => {
+      if (docSnap.exists()) {
+        setTotal(docSnap.data().total || 0);
+      } else {
+        // Якщо документ не створений, створимо його
+        setDoc(fundDoc, { total: 0 });
+      }
+    });
+    return () => unsub();
+  }, []);
 
-// Update UI with current fund amount
-async function updateFundUI(amount) {
-  const maxGoal = 1000; // Example max goal for progress bar (can be adjusted)
-  let percent = Math.min((amount / maxGoal) * 100, 100);
-  progressBar.style.width = percent + "%";
-  progressLabel.textContent = $${amount.toFixed(2)} raised;
+  // Обробник донату
+  const handleDonate = async () => {
+    if (donateAmount <= 0) return alert("Please enter a valid amount");
+    // Вираховуємо 87% від суми (забираємо 13%)
+    const netAmount = donateAmount * 0.87;
+    try {
+      await updateDoc(fundDoc, {
+        total: increment(netAmount),
+      });
+      alert(Thank you for donating $${donateAmount.toFixed(2)}!);
+      setDonateAmount(1); // Скидаємо поле
+    } catch (error) {
+      alert("Error donating: " + error.message);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        backgroundColor: "#121212",
+        color: "#eee",
+        minHeight: "100vh",
+        padding: "20px",
+        textAlign: "center",
+      }}
+    >
+      <h1>Lucky Dollar</h1>
+      <p>
+        Join millions worldwide helping each other. Donate $1 or any amount you
+        wish. 13% supports project growth.
+      </p>
+
+      {/* Циферблат з сумою */}
+      <div
+        style={{
+          margin: "40px auto",
+          width: "200px",
+          height: "200px",
+          borderRadius: "50%",
+          border: "8px solid #55aaff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "3rem",
+          fontWeight: "bold",
+          backgroundColor: "#1e1e1e",
+          userSelect: "none",
+        }}
+      >
+        ${total.toFixed(2)}
+      </div>
+
+      {/* Вибір суми */}
+      <div style={{ marginBottom: "20px" }}>
+        <button
+          onClick={() => setDonateAmount(1)}
+          style={{
+            padding: "10px 20px",
+            marginRight: "10px",
+            backgroundColor: donateAmount === 1 ? "#55aaff" : "#333",
+            color: "#eee",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Donate $1
+        </button>
+        <input
+          type="number"
+          min="0.01"
+          step="0.01"
+          value={donateAmount === 1 ? "" : donateAmount}
+          placeholder="Or enter amount"
+          onChange={(e) => setDonateAmount(parseFloat(e.target.value) || 0)}
+          style={{
+            padding: "10px",
+            width: "120px",
+            borderRadius: "5px",
+            border: "1px solid #555",
+            backgroundColor: "#222",
+            color: "#eee",
+            fontSize: "1rem",
+          }}
+        />
+      </div>
+
+      <button
+        onClick={handleDonate}
+        style={{
+          padding: "12px 30px",
+          backgroundColor: "#55aaff",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          fontSize: "1.2rem",
+          cursor: "pointer",
+        }}
+      >
+        Donate
+      </button>
+
+      <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "30px" }}>
+        13% of every donation is kept to grow and promote this project.
+      </p>
+    </div>
+  );
 }
-
-// Initialize fund document if not exists
-async function initFund() {
-  const docSnap = await getDoc(fundDocRef);
-  if (!docSnap.exists()) {
-    await setDoc(fundDocRef, { total: 0 });
-    updateFundUI(0);
-  } else {
-    updateFundUI(docSnap.data().total || 0);
-  }
-}
-
-// Listen to realtime updates
-onSnapshot(fundDocRef, (docSnap) => {
-  if (docSnap.exists()) {
-    updateFundUI(docSnap.data().total || 0);
-  }
-});
-
-// Simulate donation processing and update fund
-async function processDonation(amount) {
-  if (amount < 1) {
-    alert("Minimum donation is $1");
-    return;
-  }
-  // Here should be actual payment integration (e.g., PayPal SDK)
-  // For demo: just update Firestore total by adding amount minus 13%
-  const netAmount = amount * 0.87;
-  try {
-    await updateDoc(fundDocRef, { total: increment(netAmount) });
-    alert(Thank you for donating $${amount.toFixed(2)}! 13% was taken for platform support.);
-  } catch (error) {
-    alert("Error processing donation: " + error.message);
-  }
-}
-
-// Event listeners
-donate1Btn.addEventListener("click", () => processDonation(1));
-donateCustomBtn.addEventListener("click", () => {
-  const val = parseFloat(customAmountInput.value);
-  if (isNaN(val) || val < 1) {
-    alert("Please enter a valid amount of at least $1");
-    return;
-  }
-  processDonation(val);
-});
-  
-// Init
-initFund();
-</script>
-</body>
-</html>
