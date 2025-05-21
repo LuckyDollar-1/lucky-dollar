@@ -1,0 +1,33 @@
+
+<p class="note">13% of all funds are used to promote and grow the project.</p>
+
+<div class="footer">
+  &copy; 2025 Lucky Dollar Project. All rights reserved.
+</div>
+
+  </div>  <script>
+    // Simulated donation count (replace with backend logic later)
+    let donations = 123; // Simulate number of donations
+    let totalAmount = donations * 1;
+    document.getElementById('donationCount').textContent = totalAmount.toFixed(2);
+
+    // Countdown Timer to the end of the current month
+    function updateCountdown() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const lastDay = new Date(year, month + 1, 0);
+      const diff = lastDay.getTime() - now.getTime();
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown').textContent = ${days}d ${hours}h ${minutes}m ${seconds}s;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script></body>
+</html>
