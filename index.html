@@ -1,202 +1,129 @@
 <!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lucky Dollar</title>
-<style>
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #111;
-    color: #eee;
-    line-height: 1.6;
-  }
-  nav {
-    position: fixed;
-    top: 0; width: 100%;
-    background: rgba(20,20,20,0.9);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    z-index: 9999;
-  }
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-  }
-  nav a {
-    color: #eee;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-  nav a:hover {
-    color: #ffd700;
-  }
-  .donate-btn-header {
-    background: #ffd700;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #222;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .donate-btn-header:hover {
-    background: #e6c200;
-  }
-  section {
-    min-height: 100vh;
-    padding: 100px 40px 60px;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  #about {
-    background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1470&q=80');
-  }
-  #facts {
-    background-image: url('https://images.unsplash.com/photo-1486308510493-cb6f7b2f1b12?auto=format&fit=crop&w=1470&q=80');
-  }
-  #videos {
-    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
-  }
-  #donate {
-    background: #222;
-    color: #eee;
-  }
-  #winners {
-    background: #333;
-  }
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 6px #000;
-  }
-  p, li {
-    font-size: 1.2rem;
-    max-width: 850px;
-    text-shadow: 1px 1px 4px #000;
-  }
-  ul {
-    margin-bottom: 40px;
-  }
-  li {
-    margin: 10px 0;
-  }
-  a.external {
-    color: #ffd700;
-  }
-  iframe {
-    max-width: 100%;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #0008;
-  }
-  .donate-btn {
-    background: #ffd700;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #222;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  .donate-btn:hover {
-    background: #e6c200;
-  }
-  .info-13 {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-top: 15px;
-    font-style: italic;
-    max-width: 850px;
-  }
-  #particles-js {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: -1;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky Dollar - Global Donation Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    header {
+      background-color: #1e1e1e;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .hero {
+      text-align: center;
+    }
+    .hero img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .donate-button {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .donate-button #paypal-button-container {
+      display: inline-block;
+    }
+    .info-section {
+      background-color: #1a1a1a;
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 10px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #1e1e1e;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
-<body><div id="particles-js"></div><nav>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#facts">Global Poverty Facts</a></li>
-    <li><a href="#videos">Videos</a></li>
-    <li><a href="#donate">Donate</a></li>
-    <li><a href="#winners">Winners</a></li>
-  </ul>
-  <button class="donate-btn-header" onclick="document.querySelector('#donate').scrollIntoView({ behavior: 'smooth' });">Donate $1</button>
-</nav><section id="about">
-  <h2>About Lucky Dollar</h2>
+<body>
+  <header>
+    <h1>Lucky Dollar</h1>
+  </header>
+  <div class="container">
+    <div class="hero">
+      <img src="https://images.unsplash.com/photo-1581091012184-7fefbde87b36" alt="Helping Hands">
+      <h2>One Dollar Can Change a Life</h2>
+      <p>
+        There are over 8 billion people on Earth, and many live in extreme poverty. Our mission is simple:
+        unite people around the globe to donate just $1 each, and every month, one lucky donor wins the pot.
+        13% is kept to promote the platform and reach more generous hearts.
+      </p>
+      <p>
+        This project is built on transparency, hope, and global cooperation. Anyone can join. Anyone can win.
+        It's not about the money — it's about changing lives together.
+      </p>
+    </div><div class="gallery">
+  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="Poverty Awareness">
+  <img src="https://images.unsplash.com/photo-1542223616-6e50c2c0b15f" alt="Charity">
+  <img src="https://images.unsplash.com/photo-1515165562835-c4c7eddb9fde" alt="Helping Finance">
+</div>
+
+<div class="donate-button">
+  <h3>Support the movement</h3>
+  <div id="paypal-button-container"></div>
+</div>
+
+<div class="info-section">
+  <h3>Why is 13% retained?</h3>
   <p>
-    Our planet is home to over 8 billion people, yet a significant percentage live on the edge of poverty.
-    The Lucky Dollar project creates a community where small contributions from many can provide real help
-    through a fair, transparent monthly lottery.
+    This percentage is used exclusively for promoting the platform (ads, outreach, development). It ensures
+    more people can join the cause and increase the monthly prize for donors. Full transparency always.
   </p>
-  <p>
-    By donating just $1, each participant enters a raffle where the pooled funds go to one lucky winner.
-    We keep only 13% to support the project’s growth and sustainability, allowing more people to join and benefit.
-  </p>
-  <p>
-    This platform promotes global solidarity, hope, and practical assistance. Join us in making a difference — one dollar at a time.
-  </p>
-  <p>
-    Learn more about the global income inequality and poverty crisis through our external sources below.
-  </p>
-</section><section id="facts">
-  <h2>Global Poverty Facts</h2>
-  <ul>
-    <li><a class="external" href="https://en.wikipedia.org/wiki/Poverty" target="_blank" rel="noopener">Poverty - Wikipedia</a></li>
-    <li><a class="external" href="https://www.worldbank.org/en/topic/poverty" target="_blank" rel="noopener">World Bank Poverty Overview</a></li>
-    <li><a class="external" href="https://www.un.org/sustainabledevelopment/poverty/" target="_blank" rel="noopener">UN Sustainable Development Goals - Poverty</a></li>
-  </ul>
-</section><section id="videos">
-  <h2>Videos</h2>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/4zLHOz6oT4o" title="YouTube video on poverty" frameborder="0" allowfullscreen></iframe>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/1bO3Lghs8Nw" title="YouTube video on charity" frameborder="0" allowfullscreen></iframe>
-</section><section id="donate">
-  <h2>Donate</h2>
-  <p>You can support the project by donating just $1 and entering the monthly raffle.</p>
-  <!-- Твій код платежів тут (stripe або paypal) -->
-  <button class="donate-btn" onclick="alert('Donate functionality coming soon!')">Donate $1</button>
-  <p class="info-13">Note: 13% of each donation is used to cover promotion and platform costs to reach more users and sustain development.</p>
-</section><section id="winners">
-  <h2>Winners</h2>
-  <p>The list of recent winners will appear here to keep the process transparent.</p>
-</section><script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script><script>
-  particlesJS('particles-js', {
-    particles: {
-      number: { value: 60, density: { enable: true, value_area: 900 } },
-      color: { value: '#ffd700' },
-      shape: { type: 'circle', stroke: { width: 0 } },
-      opacity: { value: 0.4, random: true },
-      size: { value: 3, random: true },
-      move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
-    },
-    interactivity: {
-      events: {
-        onhover: { enable: true, mode: 'repulse' },
-        onclick: { enable: true, mode: 'push' }
+</div>
+
+  </div>  <footer>
+    <p>&copy; 2025 Lucky Dollar Project. All rights reserved.</p>
+  </footer>  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>  <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '1.00'
+            }
+          }]
+        });
       },
-      modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-    },
-    retina_detect: true
-  });
-</script></body>
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Thank you, ' + details.payer.name.given_name + '! Your donation is appreciated.');
+        });
+      }
+    }).render('#paypal-button-container');
+  </script></body>
 </html>
